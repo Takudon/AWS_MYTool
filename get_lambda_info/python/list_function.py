@@ -28,45 +28,46 @@ def get_functions():
     pass
 
 ############################################################
-# Module      :
+# Module      : check env
 # Description :
-#  
-#  
+#  This module is used for check where the environment of 
+#  lambda development. 
 ############################################################
 def check_env():
-    pass
+    return env
 
 ############################################################
-# Module      :
+# Module      : process_functions
 # Description :
-#  
+#  Processing function information. I have got FunctionName,
+#  Region, LastModified, 
+#  LastExecution(get_latest_execution_time).
 #  
 ############################################################
 def process_functions():
     pass
 
 ############################################################
-# Module      :
+# Module      : get_latest_execution_time
 # Description :
-#  
-#  
+#  This module is used for get last execution time of each
+#  Lambda functions.
 ############################################################
 def get_latest_execution_time():
     pass
 
 ############################################################
-# Module      :
+# Module      : format_dataset
 # Description :
-#  
-#  
+#  Format dataset for replace and make CSV.
 ############################################################
 def format_dataset():
     pass
 
 ############################################################
-# Module      :
+# Module      : type_dataframe
 # Description :
-#  
+#  irankamo.
 #  
 ############################################################
 def type_dataframe():
