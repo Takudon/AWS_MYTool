@@ -20,9 +20,6 @@ def get_session():
     credentials = session.get_credentials()
 
     return credentials
-    # print('export AWS_ACCESS_KEY_ID={}'.format(credentials.access_key))
-    # print('export AWS_SECRET_ACCESS_KEY={}'.format(credentials.secret_key))
-    # print('export AWS_SESSION_TOKEN={}'.format(credentials.token))
 
 ############################################################
 # Module      : get_active_rules
@@ -54,6 +51,7 @@ if __name__ == "__main__":
     active_rules = get_active_rules()
     pprint.pprint(active_rules)
 
+    # Paginator for get compliance details overflowed limit number.
     paginator = config.get_paginator('get_compliance_details_by_config_rule')
 
     for rule in active_rules:
