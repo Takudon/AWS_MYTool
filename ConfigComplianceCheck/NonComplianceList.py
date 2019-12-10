@@ -5,6 +5,7 @@ import pprint
 
 MODE = "TEST"
 
+sts = boto3.client('sts')
 config = boto3.client('config') 
 
 ############################################################
@@ -15,11 +16,19 @@ config = boto3.client('config')
 #  Care for usage of credentials
 ############################################################
 def get_session():
-
-    session = boto3.session.Session(profile_name='odh')
-    credentials = session.get_credentials()
-
-    return credentials
+    MFA_TokenCode = str(input('MFA_TokenCode ->'))
+    sts_res = sts.get_session_token(
+        SerialNumber='arn:aws:iam::745132880338:mfa/osk-taku_tanaka', 
+        TokenCode=MFA_TokenCode
+    )
+    credentials = sts_res['Credentials']
+    session = boto3.session.Session(
+        profile_name='odh', 
+        aws_session_token=credentials['SessionToken']
+    )
+    #credentials = session.get_credentials()
+    session.get_credentials()
+    #return credentials
 
 ############################################################
 # Module      : get_active_rules
@@ -42,7 +51,7 @@ def get_active_rules():
 if __name__ == "__main__":
 
     print("Module : get_session ----------------------------------")
-    credentials = get_session()
+    get_session()
     # pprint.pprint('export AWS_ACCESS_KEY_ID={}'.format(credentials.access_key))
     # pprint.pprint('export AWS_SECRET_ACCESS_KEY={}'.format(credentials.secret_key))
     # pprint.pprint('export AWS_SESSION_TOKEN={}'.format(credentials.token))
@@ -81,4 +90,4 @@ if __name__ == "__main__":
             continue
         
         df = pd.DataFrame(data, columns=columns)
-        df.to_csv("./csv/"+rule+".csv")
+        #df.to_csv("./csv/"+rule+".csv")
