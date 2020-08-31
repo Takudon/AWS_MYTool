@@ -20,10 +20,10 @@ def get_args():
     return(args)
 
 def get_credential():
-    session = boto3.session.Session(profile_name='odh')
+    session = boto3.session.Session(profile_name=os.environ["PROFILE"])
     sts = session.client('sts')
     credentials = sts.get_session_token(
-        SerialNumber='arn:aws:iam::745132880338:mfa/osk-taku_tanaka',
+        SerialNumber=os.environ["MFA_SERIAL"],
         TokenCode=str(input("MFA OneTime Token Code >>"))
     )['Credentials']
 

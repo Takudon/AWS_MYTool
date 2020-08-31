@@ -3,8 +3,6 @@ import boto3
 import json
 import pprint
 
-MODE = "TEST"
-
 sts = boto3.client('sts')
 config = boto3.client('config') 
 
@@ -18,12 +16,12 @@ config = boto3.client('config')
 def get_session():
     MFA_TokenCode = str(input('MFA_TokenCode ->'))
     sts_res = sts.get_session_token(
-        SerialNumber='arn:aws:iam::745132880338:mfa/osk-taku_tanaka', 
+        SerialNumber=os.environ["MFASerial"], 
         TokenCode=MFA_TokenCode
     )
     credentials = sts_res['Credentials']
     session = boto3.session.Session(
-        profile_name='odh', 
+        profile_name=os.environ["PROFILE"], 
         aws_session_token=credentials['SessionToken']
     )
     #credentials = session.get_credentials()
